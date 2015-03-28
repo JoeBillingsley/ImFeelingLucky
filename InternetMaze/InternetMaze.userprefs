@@ -1,12 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Room.cs">
     <Files>
-      <File FileName="Assets/DoorScript.cs" Line="23" Column="18" />
-      <File FileName="Assets/Door.cs" Line="18" Column="51" />
+      <File FileName="Assets/DoorScript.cs" Line="17" Column="111" />
+      <File FileName="Assets/Door.cs" Line="1" Column="1" />
       <File FileName="Assets/URLHandler.cs" Line="1" Column="1" />
-      <File FileName="Assets/RoomGenerator.cs" Line="16" Column="32" />
-      <File FileName="Assets/Room.cs" Line="43" Column="18" />
+      <File FileName="Assets/RoomGenerator.cs" Line="97" Column="32" />
+      <File FileName="Assets/Room.cs" Line="129" Column="59" />
       <File FileName="Assets/RoomInfo.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
