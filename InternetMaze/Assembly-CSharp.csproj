@@ -46,6 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Door.cs" />
+     <Compile Include="Assets\DoorScript.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRCameraRig.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRCommon.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRDisplay.cs" />
@@ -62,6 +64,10 @@
      <Compile Include="Assets\OVR\Scripts\Util\OVRPlayerController.cs" />
      <Compile Include="Assets\OVR\Scripts\Util\OVRScreenFade.cs" />
      <Compile Include="Assets\OVR\Scripts\Util\OVRUGUI.cs" />
+     <Compile Include="Assets\Room.cs" />
+     <Compile Include="Assets\RoomGenerator.cs" />
+     <Compile Include="Assets\RoomInfo.cs" />
+     <Compile Include="Assets\URLHandler.cs" />
      <None Include="Assets\Plugins\donotdelete.txt" />
      <None Include="Assets\Plugins\x86_64\donotdelete.txt" />
      <None Include="Assets\OVR\Shaders\TextShader3D.shader" />
