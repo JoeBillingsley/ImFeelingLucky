@@ -16,9 +16,9 @@ public class DoorScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButtonUp ("Jump")) {
-			ToggleOpen();
-		}
+//		if (Input.GetButtonUp ("Jump")) {
+//			ToggleOpen();
+//		}
 
 		if (!moving) {
 			return;
