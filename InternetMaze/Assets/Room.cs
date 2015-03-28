@@ -40,7 +40,7 @@ public class Room {
 
 		room_centre = last_edge_center + centre_modifier;
 		BuildFloor (edgeLength);
-		BuildCeiling (edgeLength);
+		BuildCeiling (edgeLength, 5);
 
 		int edge_index = direction;
 		if (direction == -1) {
@@ -105,7 +105,7 @@ public class Room {
 				+ direction * door_width/2 
 					+ Vector3.up * wall.transform.localScale.y / 2;
 			wall.transform.right = direction;
-			wall.GetComponent<Renderer> ().material.color = color;
+//			wall.GetComponent<Renderer> ().material.color = color;
 		} else {
 			string r = "fucccccck";
 			Door door = new Door (r, origin_point + direction * door_width / 2, direction);
@@ -115,7 +115,7 @@ public class Room {
 			above.transform.position = origin_point
 				+ direction * door_width/2 +
 					Vector3.up * (door.GetHeight() + above.transform.localScale.y /2);
-			above.GetComponent<Renderer> ().material.color = color;
+//			above.GetComponent<Renderer> ().material.color = color;
 			above.transform.right = direction;
 		}
 	}
@@ -126,9 +126,9 @@ public class Room {
 		floor.transform.position = new Vector3 (0, -0.5f, 0);
 	}
 
-	private void BuildCeiling(float edgeLength) {
+	private void BuildCeiling(float edgeLength, float door_height) {
 		GameObject floor = GameObject.CreatePrimitive (PrimitiveType.Cube);
 		floor.transform.localScale = new Vector3 (edgeLength, 1, edgeLength);
-		floor.transform.position = new Vector3 (0, 0.5f + edgeLength, 0);
+		floor.transform.position = new Vector3 (0, 0.5f + door_height * 1.5f, 0);
 	}
 }

@@ -7,18 +7,24 @@ public class DoorScript : MonoBehaviour {
 	private Vector3 closedPosition;
 	private Vector3 openPosition;
 	private Door door;
+	private GameObject player;
 
 	// Use this for initialization
 	void Start () {
 		closedPosition = transform.position;
 		openPosition = closedPosition + transform.right * transform.localScale.x;
+		player = GameObject.FindGameObjectWithTag ("Player");
+		gameObject.GetComponent<Renderer> ().material.color = new Color (0.3294117647f, 0.4588235294f, 0.4235294118f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-//		if (Input.GetButtonUp ("Jump")) {
-//			ToggleOpen();
-//		}
+		if (Input.GetButtonUp ("Jump")) {
+			if (Vector3.Distance (transform.position, player.transform.position) < 5) {
+				ToggleOpen();
+			}
+		}
+
 
 		if (!moving) {
 			return;

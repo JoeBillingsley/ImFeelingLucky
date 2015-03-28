@@ -24,6 +24,7 @@ public class Door {
 
 	public void OnDoorOpen() {
 		string s = URLHandler.GetLinks (url);
+
 	}
 
 	public void OnDoorClose() {
