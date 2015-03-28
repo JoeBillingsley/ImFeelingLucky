@@ -5,16 +5,9 @@ def backlinkRequest(siteRequest):
 	http = urllib3.PoolManager()
 	limit = 100
 	try:
-		url = str(majurl)+'GetBackLinkData&item='+str(siteRequest)+'&Count='+str(limit)+'&datasource=fresh'
+		url = str(majurl)+'GetBackLinkData&item='+str(siteRequest)+'&Count='+str(limit)+'&datasource=fresh&MaxSourceURLsPerRefDomain=1'
 		r = requests.get(url, stream=True)
-		parsed = r.json()["DataTables"]["BackLinks"]["Data"]
-		l = []
-		for row in parsed:
-			targetURL = row["SourceURL"]
-
-			if targetURL not in l:
-				l.append(row["SourceURL"])
-		return l
+		return getSourceURL(r)
 	except Exception:
 		print (traceback.format_exc())
 
@@ -24,9 +17,32 @@ def trustRequest(siteRequest):
 		url = str(majurl)+'GetLinkProfile&item0='+str(siteRequest)
 		r = requests.get(url,stream=True)
 		parsed = r.json()["DataTables"]["RankingMatrix_0"]["Headers"]["TotalValues"]
-
 		return parsed
 	except Exception:
 		print (traceback.format_exc())
 
-trustRequest('www.bbc.co.uk')
+def getSourceURL(r):
+	parsed = r.json()["DataTables"]["BackLinks"]["Data"]
+	l = []
+	for row in parsed:
+		targetURL = row["SourceURL"]
+
+		if targetURL not in l:
+			l.append(targetURL)
+	
+	return l
+
+def refDomains(siteRequest):
+	http = urllib3.PoolManager()
+	limit = 100
+	try:
+		url = str(majurl)+'GetBackLinkData&item='+str(siteRequest)+'&Count='+str(limit)+'&datasource=fresh&MaxSourceURLsPerRefDomain=1'
+		r = requests.get(url,stream=True)
+		return getSourceURL(r)
+	except Exception:
+		print(traceback.format_exc())
+
+request = refDomains('www.bbc.co.uk')
+
+for row in request:
+	print(row)
