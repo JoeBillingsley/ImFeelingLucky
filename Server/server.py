@@ -26,9 +26,9 @@ class myHandler(BaseHTTPRequestHandler):
 		command =  parse_qs(parsed.query)['command'][0]
 		url = parse_qs(parsed.query)['url'][0]
 
-		 majesticReturnString = ""
+		majesticReturnString = ""
 
-		 majesticReturnList = []
+		majesticReturnList = []
 
 		if command == 'GetBackLinks':
 
@@ -49,6 +49,19 @@ class myHandler(BaseHTTPRequestHandler):
 		elif command == 'GetBackgroundColour':
 
 			majesticReturnString = majesticRequest.cssScrape(url) 
+
+		if majesticReturnString != "":
+				
+			self.wfile.write(majesticReturnString)
+
+		elif majesticReturnList != []:
+
+			self.wfile.write(majesticReturnList)
+
+		else:
+
+			self.wfile.write("Error")
+
 			
 try:
 	#Create a web server and define the handler to manage the
