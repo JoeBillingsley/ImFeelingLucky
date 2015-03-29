@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Door {
-	private string url;
+	public string url;
 	private GameObject door;
 	private float height;
 
@@ -17,7 +17,9 @@ public class Door {
 		DoorScript doorscript = g.AddComponent<DoorScript> ();
 		doorscript.SetDoor (this);
 		height = g.transform.localScale.y;
-		g.transform.position += Vector3.up * height / 2;
+
+
+
 	}
 
 	public float GetHeight() {

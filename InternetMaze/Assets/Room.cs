@@ -1,27 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Room {
+public class Room : IDataLoadedCallback {
 	private float door_width;
 	private int direction;
 	private Vector3 room_centre;
 	private List<string> referrals;
 	int doors_spawned = 0;
 
+	private RoomInfo _info;
+
+	private Vector3 last_edge_center;
+
 	public Room(RoomInfo info, int direction, float door_width, Vector3 last_edge_center) {
 		this.door_width = door_width;
 		this.direction = direction;
+		this.last_edge_center = last_edge_center;
+
+		_info = info;
 
 		string origin_url = info.url;
+	}
 
-		// Need to add check for files being loaded
-		referrals = info.referrals;
+	public void LinksLoaded() {
 
+		referrals = _info.referrals;
+		
 		int door_space_count = 12 + 8 * (int) (Mathf.Floor((referrals.Count - 1) / 4));
 		Debug.Log (door_space_count);
 		float edgeLength = door_width * door_space_count/4;
 		Vector3 centre_modifier = new Vector3();
-
+		
 		switch (direction) {
 		case 0:
 			centre_modifier = new Vector3(0, 0, edgeLength / 2);
@@ -39,24 +48,26 @@ public class Room {
 			room_centre = Vector3.zero;
 			break;
 		}
-
+		
 		room_centre = last_edge_center + centre_modifier;
+
 		BuildFloor (edgeLength);
 		BuildCeiling (edgeLength, 5, edgeLength * 0.1f);
-
+		
 		int edge_index = direction;
 		if (direction == -1) {
 			edge_index = 0;
 		}
-
+		
 		bool wall = true;
 		for (int i = 0; i < (int) (door_space_count/4); i++) {
 			SpawnDoorOrWallOnAllEdges(wall, i, edgeLength);
 			wall = !wall;
 		}
+	}
 
-		var packet = GameObject.CreatePrimitive (PrimitiveType.Cube);
-		packet.AddComponent<PacketAI> ();
+	public void ImagesLoaded() {
+		Debug.Log ("Images loaded");
 	}
 
 	private void SpawnDoorOrWallOnAllEdges(bool wall, int offset, float edgeLength) {

@@ -6,19 +6,21 @@ public class RoomGenerator : MonoBehaviour {
 	private Room current;
 
 	void Start() {
-		MakeRoom ("majestic.co.uk");
+		MakeRoom ("google.com");
 	}
 
-	public void MakeRoom(string url) {
+	public RoomInfo MakeRoom(string url) {
 		RoomInfo info = new RoomInfo ();
 		info.url = url;
 		info.referrals = new List<string> {info.url};
 
 		var go = new GameObject ();
-		go.AddComponent <URLHandler>().init(info);
-
-		info.data = go;
 
 		Room room = new Room (info, -1, 3, Vector3.zero);
+
+		go.AddComponent <URLHandler>().init(info, room);
+		info.data = go;
+
+		return info;
 	}
 }

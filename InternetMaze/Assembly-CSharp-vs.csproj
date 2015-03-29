@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Door.cs" />
      <Compile Include="Assets\DoorScript.cs" />
+     <Compile Include="Assets\IDataLoadedCallback.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRCameraRig.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRCommon.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRDisplay.cs" />
