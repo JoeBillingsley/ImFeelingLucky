@@ -7,12 +7,14 @@ public class Room : IDataLoadedCallback {
 	private Vector3 room_centre;
 	private List<string> referrals;
 	int doors_spawned = 0;
+	private float height;
 
 	private RoomInfo _info;
 
 	private Vector3 last_edge_center;
 
-	public Room(RoomInfo info, int direction, float door_width, Vector3 last_edge_center) {
+	public Room(RoomInfo info, int direction, float door_width, Vector3 last_edge_center, float height) {
+		this.height = height;
 		this.door_width = door_width;
 		this.direction = direction;
 		this.last_edge_center = last_edge_center;
@@ -64,6 +66,8 @@ public class Room : IDataLoadedCallback {
 			SpawnDoorOrWallOnAllEdges(wall, i, edgeLength);
 			wall = !wall;
 		}
+
+		GameObject.FindGameObjectWithTag ("Player").transform.position = room_centre + Vector3.up * 5;
 	}
 
 	public void ImagesLoaded() {
@@ -116,7 +120,7 @@ public class Room : IDataLoadedCallback {
 
 		if (iswall) {
 			GameObject wall = GameObject.CreatePrimitive (PrimitiveType.Cube);
-			wall.transform.localScale = new Vector3 (door_width, edgeLength, 1);
+			wall.transform.localScale = new Vector3 (door_width, height, 1);
 			wall.transform.position = origin_point
 				+ direction * door_width/2 
 					+ Vector3.up * wall.transform.localScale.y / 2;
@@ -124,12 +128,12 @@ public class Room : IDataLoadedCallback {
 //			wall.GetComponent<Renderer> ().material.color = color;
 		} else {
 			string r = "welp";
-			Door door = new Door (r, origin_point + direction * door_width / 2, direction);
+			Door door = new Door (r, origin_point + direction * door_width / 2 + Vector3.up * 2.5f, direction);
 			
 
 //			referrals.RemoveAt (referrals.Count - 1);
 			GameObject above = GameObject.CreatePrimitive (PrimitiveType.Cube);
-			above.transform.localScale = new Vector3 (door_width, edgeLength - door.GetHeight(), 1);
+			above.transform.localScale = new Vector3 (door_width, height - door.GetHeight(), 1);
 			above.transform.position = origin_point
 				+ direction * door_width/2 +
 					Vector3.up * (door.GetHeight() + above.transform.localScale.y /2);
@@ -148,7 +152,7 @@ public class Room : IDataLoadedCallback {
 	private void BuildCeiling(float edgeLength, float door_height, float border) {
 		GameObject floor = GameObject.CreatePrimitive (PrimitiveType.Cube);
 		floor.transform.localScale = new Vector3 (edgeLength, 1, edgeLength);
-		floor.transform.position = new Vector3 (0, 0.5f + door_height * 1.5f, 0);
+		floor.transform.position = new Vector3 (0, 0.5f + height, 0);
 		floor.GetComponent<Renderer> ().material.color = Color.white;
 	}
 }

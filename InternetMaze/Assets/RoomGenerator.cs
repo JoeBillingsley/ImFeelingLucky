@@ -16,7 +16,7 @@ public class RoomGenerator : MonoBehaviour {
 
 		var go = new GameObject ();
 
-		Room room = new Room (info, -1, 3, Vector3.zero);
+		Room room = new Room (info, -1, 3, Vector3.zero, 10);
 
 		go.AddComponent <URLHandler>().init(info, room);
 		info.data = go;
