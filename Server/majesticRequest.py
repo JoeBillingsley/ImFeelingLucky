@@ -100,5 +100,3 @@ def cssScrape(site):
 		cssCode = '#000'
 
 	return cssCode	
-
-print(imgScrape('www.bbc.co.uk'))
