@@ -8,18 +8,20 @@ public class Room {
 	private List<string> referrals;
 	int doors_spawned = 0;
 
-	public Room(RoomInfo info, int direction, float door_width, string origin_url, Vector3 last_edge_center) {
+	public Room(RoomInfo info, int direction, float door_width, Vector3 last_edge_center) {
 		this.door_width = door_width;
 		this.direction = direction;
 
-		referrals = new List<string>();
-		referrals.Add (origin_url);
-		referrals.AddRange (info.referrals);
+		string origin_url = info.url;
+
+		// Need to add check for files being loaded
+		referrals = info.referrals;
 
 		int door_space_count = 12 + 8 * (int) (Mathf.Floor((referrals.Count - 1) / 4));
 		Debug.Log (door_space_count);
 		float edgeLength = door_width * door_space_count/4;
 		Vector3 centre_modifier = new Vector3();
+
 		switch (direction) {
 		case 0:
 			centre_modifier = new Vector3(0, 0, edgeLength / 2);
@@ -52,6 +54,9 @@ public class Room {
 			SpawnDoorOrWallOnAllEdges(wall, i, edgeLength);
 			wall = !wall;
 		}
+
+		var packet = GameObject.CreatePrimitive (PrimitiveType.Cube);
+		packet.AddComponent<PacketAI> ();
 	}
 
 	private void SpawnDoorOrWallOnAllEdges(bool wall, int offset, float edgeLength) {
@@ -109,6 +114,8 @@ public class Room {
 		} else {
 			string r = "welp";
 			Door door = new Door (r, origin_point + direction * door_width / 2, direction);
+			
+
 //			referrals.RemoveAt (referrals.Count - 1);
 			GameObject above = GameObject.CreatePrimitive (PrimitiveType.Cube);
 			above.transform.localScale = new Vector3 (door_width, edgeLength - door.GetHeight(), 1);

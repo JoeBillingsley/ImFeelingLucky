@@ -6,97 +6,19 @@ public class RoomGenerator : MonoBehaviour {
 	private Room current;
 
 	void Start() {
-		MakeRoom ("whatever");
+		MakeRoom ("majestic.co.uk");
 	}
 
-	public void MakeRoom(string s) {
+	public void MakeRoom(string url) {
 		RoomInfo info = new RoomInfo ();
-		info.url = "google";
-		List<string> urls = new List<string> ();
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.youtube.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.google.com");
-		urls.Add ("www.youtube.com");
-		info.referrals = urls;
+		info.url = url;
+		info.referrals = new List<string> {info.url};
 
-		Room room = new Room (info, -1, 3, "helloworld", Vector3.zero);
+		var go = new GameObject ();
+		go.AddComponent <URLHandler>().init(info);
+
+		info.data = go;
+
+		Room room = new Room (info, -1, 3, Vector3.zero);
 	}
 }

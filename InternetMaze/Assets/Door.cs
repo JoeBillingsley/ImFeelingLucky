@@ -12,6 +12,8 @@ public class Door {
 		g.transform.localScale = new Vector3 (3, 5, 0.25f);
 		g.transform.position = position;
 		g.transform.right = right;
+		g.gameObject.tag = "Door";
+
 		DoorScript doorscript = g.AddComponent<DoorScript> ();
 		doorscript.SetDoor (this);
 		height = g.transform.localScale.y;
@@ -23,7 +25,6 @@ public class Door {
 	}
 
 	public void OnDoorOpen() {
-		string s = URLHandler.GetLinks (url);
 
 	}
 

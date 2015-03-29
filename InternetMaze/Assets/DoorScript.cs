@@ -19,12 +19,12 @@ public class DoorScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
 		if (Input.GetButtonUp ("Jump")) {
 			if (Vector3.Distance (transform.position, player.transform.position) < 5) {
 				ToggleOpen();
 			}
 		}
-
 
 		if (!moving) {
 			return;
