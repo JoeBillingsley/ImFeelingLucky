@@ -44,16 +44,19 @@ public class URLHandler : MonoBehaviour {
 
 		numOfPhotos = _info.images.Count;
 
-		var text = cmd.text.Remove (0, 3);
-		text = text.Remove (text.Length - 1);
-
-		var imageUrls = text.Split(new string[] { "', u'" }, StringSplitOptions.None);
-
-		foreach(var imageUrl in imageUrls) {
-			StartCoroutine(GetImage (url));
+		if (cmd.text != null || cmd.text != "") {
+			var text = cmd.text.Remove (0, 3);
+			text = text.Remove (text.Length - 1);
+			
+			var imageUrls = text.Split(new string[] { "', u'" }, StringSplitOptions.None);
+			
+			foreach(var imageUrl in imageUrls) {
+				StartCoroutine(GetImage (url));
+			}
+			
+			_loaded.ImagesLoaded ();
 		}
 
-		_loaded.ImagesLoaded ();
 	}
 
 	private IEnumerator GetImage(string imageUrl) {
