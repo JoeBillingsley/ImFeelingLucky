@@ -17,7 +17,7 @@ def trustRequest(siteRequest):
 		url = str(majurl)+'GetLinkProfile&item0='+str(siteRequest)
 		r = requests.get(url,stream=True)
 		parsed = r.json()["DataTables"]["RankingMatrix_0"]["Headers"]["TotalValues"]
-		return parsed
+		return str(parsed)
 	except Exception:
 		print (traceback.format_exc())
 
@@ -28,7 +28,7 @@ def getSourceURL(r):
 		targetURL = row["SourceURL"]
 
 		if targetURL not in l:
-			l.append(targetURL)
+			l.append(str(targetURL))
 	
 	return l
 
@@ -50,7 +50,7 @@ def imgScrape(site):
 	for image in soup.find_all('img'):
 		imagesrc = image["src"]
 		if imagesrc[-4:] == '.png' or imagesrc[-4:] == '.jpg' or imagesrc[-5:] == '.JPEG':
-			imageArr.append(imagesrc)
+			imageArr.append(str(imagesrc))
 	return imageArr
 
 def cssScrape(site):
@@ -98,4 +98,4 @@ def cssScrape(site):
 	if cssCode == '':
 		cssCode = '#000'
 
-	return cssCode	
+	return str(cssCode)	
