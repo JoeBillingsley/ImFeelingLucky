@@ -1,8 +1,9 @@
 	#!/usr/bin/python
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
-from majesticRequest import request
-from urlparse import urlparse
-import cgi
+import majesticRequest
+from urlparse import urlparse, parse_qs
+ 
+
 
 PORT_NUMBER = 8080
 
@@ -15,36 +16,39 @@ class myHandler(BaseHTTPRequestHandler):
 	#Handler for the GET requests
 	def do_GET(self):
 
-		# Parse the form data posted
-	   	form = cgi.FieldStorage(
-           	fp=self.rfile, 
-         	headers=self.headers,
-          	environ={'REQUEST_METHOD':'GET',
-                  	'CONTENT_TYPE':self.headers['Content-Type'],
-                   	})
-
 		self.send_response(200)
 
 	  	self.send_header('Content-type','text/html')
 
 		self.end_headers()
 
-		self.wfile.write('Form data:\n')
+		parsed = urlparse(self.path)
+		command =  parse_qs(parsed.query)['command'][0]
+		url = parse_qs(parsed.query)['url'][0]
 
-	   	# Echo back information about what was posted in the form
-	 	for field in form.keys():
-	   		field_item = form[field]
-	    	if field_item.filename:
-	        	# The field contains an uploaded file
-	            file_data = field_item.file.read()
-	            file_len = len(file_data)
-	            del file_data
-	            self.wfile.write('\tUploaded %s as "%s" (%d bytes)\n' % \
-                        (field, field_item.filename, file_len))
-	      	else:
-				# Regular form value
-				self.wfile.write('\t%s=%s\n' % (field, form[field].value))
-	 	return
+		 majesticReturnString = ""
+
+		 majesticReturnList = []
+
+		if command == 'GetBackLinks':
+
+			majesticReturnList = majesticRequest.backlinkRequest(url)
+
+		elif command == 'GetTrustRequest':
+		
+			majesticReturnString = majesticRequest.trustRequest(url)
+
+		elif command == 'GetRefDomains':
+
+			majesticReturnList = majesticRequest.refDomains(url)
+
+		elif command == 'GetImages':
+
+			majesticReturnList = majesticRequest.imgScrape(url)
+
+		elif command == 'GetBackgroundColour':
+
+			majesticReturnString = majesticRequest.cssScrape(url) 
 			
 try:
 	#Create a web server and define the handler to manage the

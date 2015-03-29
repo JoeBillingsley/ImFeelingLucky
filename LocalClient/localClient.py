@@ -1,12 +1,18 @@
 #!/usr/bin/python
 
 import requests
+import urllib
+import urllib3
 
 #payload = {'key1': 'GetBaseLinks'}
 url = "http://localhost:8080"
 
-data = {'command': 'GetBaseLinks', 'url': 'www.example.com'}
+params = {'command': 'GetBaseLinks', 'url': 'www.example.com'}
 
-#r = requests.get("localhost:8080", params=payload)
+myPort = "8080"
 
-print requests.get(url, data=data)
+myURL = "http://localhost:%s/?%s" % (myPort, urllib.urlencode(params)) 
+
+print myURL
+
+r = urllib.urlopen(myURL)
