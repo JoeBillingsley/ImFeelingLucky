@@ -42,12 +42,15 @@ def refDomains(siteRequest):
 		print(traceback.format_exc())
 
 def imgScrape(site):
+	#png and jpg
 	http = urllib3.PoolManager()
 	filehandle = http.urlopen('GET',site)
 	soup = BeautifulSoup(filehandle.data)
 	imageArr = []
 	for image in soup.find_all('img'):
-		imageArr.append(image["src"])
+		imagesrc = image["src"]
+		if imagesrc[-4:] == '.png' or imagesrc[-4:] == '.jpg' or imagesrc[-5:] == '.JPEG':
+			imageArr.append(imagesrc)
 	return imageArr
 
 def cssScrape(site):
@@ -97,3 +100,5 @@ def cssScrape(site):
 		cssCode = '#000'
 
 	return cssCode	
+
+print(imgScrape('www.bbc.co.uk'))
