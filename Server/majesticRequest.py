@@ -50,8 +50,6 @@ def imgScrape(site):
 	for image in soup.find_all('img'):
 		imagesrc = image["src"]
 		if imagesrc[-4:] == '.png' or imagesrc[-4:] == '.jpg' or imagesrc[-5:] == '.JPEG':
-			if 'http' not in imagesrc:
-				imagesrc = site + imagesrc
 			imageArr.append(str(imagesrc))
 	return imageArr
 
