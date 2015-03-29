@@ -58,7 +58,7 @@ def cssScrape(site):
 	filehandle = http.urlopen('GET',site)
 	soup = BeautifulSoup(filehandle.data)
 
-	inlineCSS = soup.find_all('style',attrs={'type':'text/css'})
+	inlineCSS = soup.find_all('style') #,attrs={'type':'text/css'})
 
 	cssCode = ''
 
@@ -86,7 +86,6 @@ def cssScrape(site):
 
 			parser = tinycss.make_parser('page3')
 			stylesheet = parser.parse_stylesheet_bytes(filehandleCSS.data)
-			print(stylesheet.rules)
 
 			for x in stylesheet.rules:
 				if 'background' in x:
