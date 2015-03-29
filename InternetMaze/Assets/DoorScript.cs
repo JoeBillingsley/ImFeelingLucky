@@ -8,6 +8,8 @@ public class DoorScript : MonoBehaviour {
 	private Vector3 openPosition;
 	private Door door;
 	private GameObject player;
+	
+	private URLHandler data;
 
 	// Use this for initialization
 	void Start () {
@@ -15,18 +17,22 @@ public class DoorScript : MonoBehaviour {
 		openPosition = closedPosition + transform.right * transform.localScale.x;
 		player = GameObject.FindGameObjectWithTag ("Player");
 		gameObject.GetComponent<Renderer> ().material.color = new Color (0.3294117647f, 0.4588235294f, 0.4235294118f);
+	
+
+
+		// Load ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
 		if (Input.GetButtonUp ("Jump")) {
 			if (Vector3.Distance (transform.position, player.transform.position) < 5) {
 				ToggleOpen();
 			}
 		}
 
-
-		if (!moving) {
+		if(!moving) {
 			return;
 		}
 
@@ -52,6 +58,16 @@ public class DoorScript : MonoBehaviour {
 	public void ToggleOpen() {
 		open = !open;
 		moving = true;
+	}
+
+	private void Load() {
+		var a = new GameObject ();
+		a.AddComponent<RoomGenerator> ();
+		var b = a.GetComponent<RoomGenerator> (); // This is stupid, is there not a better way?
+		
+		var info = b.MakeRoom (door.url);
+		
+		data = info.data.GetComponent<URLHandler> ();
 	}
 
 	public void SetDoor(Door door) {
