@@ -4,17 +4,12 @@ import requests
 import urllib
 import urllib3
 
-#payload = {'key1': 'GetBaseLinks'}
-url = "http://localhost:8080"
-
-params = {'command': 'GetRefDomains', 'url': 'www.google.co.uk'}
+params = {'command': 'GetImages', 'url': 'www.google.co.uk'}
 
 myPort = "8080"
 
-myURL = "http://localhost:%s/?%s" % (myPort, urllib.urlencode(params)) 
-
-print myURL
+myURL = "http://52.17.60.90:%s/?%s" % (myPort, urllib.urlencode(params)) 
 
 r = urllib.urlopen(myURL)
 
-#print r.read()
+print r.read()
